@@ -1,10 +1,15 @@
 import os
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
 
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from contextlib import asynccontextmanager
 from db.db_manager import init_db, close_tunnel
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from services.cleanup_scheduler import start_scheduler, stop_scheduler
 
@@ -74,6 +79,12 @@ app.add_middleware(
     allow_headers     = ["*"],
 )
 
+# ─────────────────────────────────────────────
+# 정적 파일 서빙 (이미지 업로드용)
+# ─────────────────────────────────────────────
+import os
+os.makedirs("uploads", exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # ─────────────────────────────────────────────
 # 라우터 등록
 # ─────────────────────────────────────────────

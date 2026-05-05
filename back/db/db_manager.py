@@ -24,7 +24,7 @@ load_dotenv()   # .env 파일 로드
 # 환경변수 로드
 # ─────────────────────────────────────────────
 DB_HOST     = os.getenv("DB_HOST", "localhost")
-DB_PORT     = int(os.getenv("DB_PORT", 3306))
+DB_PORT     = int(os.getenv("DB_PORT") or 3306)
 DB_USER     = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME     = os.getenv("DB_NAME")
@@ -32,7 +32,7 @@ DB_NAME     = os.getenv("DB_NAME")
 SERVER      = os.getenv("SERVER")
 
 SSH_HOST    = os.getenv("SSH_HOST")
-SSH_PORT    = int(os.getenv("SSH_PORT", 22))
+SSH_PORT    = int(os.getenv("SSH_PORT") or 22)
 SSH_USER    = os.getenv("SSH_USER")
 SSH_PKEY    = os.getenv("SSH_PKEY")
 
