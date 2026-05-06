@@ -14,10 +14,14 @@ OPENAI_TEMPERATURE: float = 0.3
 
 # ── ChromaDB (Vector DB) ──────────────────────────────
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-CHROMA_DB_PATH: str = os.getenv(
-    "CHROMA_DB_PATH",
-    os.path.join(_PROJECT_ROOT, "vector_store")
-)
+_db_path = os.getenv("CHROMA_DB_PATH", "vector_store")
+
+# 상대 경로일 경우 프로젝트 루트 기준으로 절대 경로화
+if not os.path.isabs(_db_path):
+    CHROMA_DB_PATH = os.path.normpath(os.path.join(_PROJECT_ROOT, _db_path))
+else:
+    CHROMA_DB_PATH = _db_path
+
 print(f"[settings] CHROMA_DB_PATH = {CHROMA_DB_PATH}", flush=True)
 CHROMA_COLLECTION: str = os.getenv("CHROMA_COLLECTION", "skin_knowledge_base")
 EMBED_MODEL_NAME: str = os.getenv("EMBED_MODEL_NAME", "jhgan/ko-sroberta-multitask")

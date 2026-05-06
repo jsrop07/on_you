@@ -82,9 +82,12 @@ def send_verification_email(email: str, otp: str) -> None:
     from_email = os.getenv("SENDGRID_FROM_EMAIL")
 
     if not api_key or not from_email:
-        raise RuntimeError(
-            "SENDGRID_API_KEY 또는 SENDGRID_FROM_EMAIL 환경변수가 설정되지 않았습니다."
-        )
+        print("\n" + "="*50)
+        print(f" [LOCAL DEV MODE] Email Verification Bypass")
+        print(f" To: {email}")
+        print(f" OTP Code: {otp}")
+        print("="*50 + "\n")
+        return
 
     message = Mail(
         from_email   = from_email,

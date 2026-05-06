@@ -218,3 +218,6 @@ skin_ai/checkpoint/
 !front/src/shared/lib/**
 !on_you/lib/
 !on_you/lib/**
+
+back/uploads
+db/migrations/001_init_tables.sql
