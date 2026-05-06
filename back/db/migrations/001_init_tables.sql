@@ -161,3 +161,21 @@ CREATE TABLE IF NOT EXISTS qna (
     updated_at  DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '답변 수정 시각',
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) COMMENT='사용자 QnA 테이블';
+
+
+-- ------------------------------------------------------------
+-- 12. user_test_results
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS user_test_results (
+    result_id   INT          AUTO_INCREMENT PRIMARY KEY,
+    user_id     INT          NOT NULL,
+    test_type   VARCHAR(50)  NOT NULL,
+    result_code VARCHAR(50)  NULL,
+    result_json JSON         NULL,
+    is_public   BOOLEAN      NOT NULL DEFAULT FALSE,
+    share_token VARCHAR(255) NULL UNIQUE,
+    created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at  DATETIME     NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);

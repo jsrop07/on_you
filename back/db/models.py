@@ -69,11 +69,11 @@ class User:
         """ DB 조회 결과 dict → User 객체 변환 """
         return User(
             user_id        = row["user_id"],
-            is_admin       = bool(row["is_admin"]),
+            is_admin       = bool(row.get("is_admin", False)),
             email          = row["email"],
             nickname       = row["nickname"],
-            terms_agreed   = bool(row["terms_agreed"]),
-            privacy_agreed = bool(row["privacy_agreed"]),
+            terms_agreed   = bool(row.get("terms_agreed", False)),
+            privacy_agreed = bool(row.get("privacy_agreed", False)),
             created_at     = row["created_at"],
             updated_at     = row["updated_at"],
             age            = row.get("age"),
